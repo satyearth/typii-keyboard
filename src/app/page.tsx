@@ -14,10 +14,10 @@ interface ThemeDef {
 
 const THEMES: ThemeDef[] = [
   { name: "classic", label: "Classic", accent: "#F57644" },
-  { name: "mint",    label: "Mint",    accent: "#86C8AC" },
-  { name: "royal",   label: "Royal",   accent: "#E4D440" },
-  { name: "dolch",   label: "Dolch",   accent: "#D73E42" },
-  { name: "sand",    label: "Sand",    accent: "#C94E41" },
+  { name: "mint", label: "Mint", accent: "#86C8AC" },
+  { name: "royal", label: "Royal", accent: "#E4D440" },
+  { name: "dolch", label: "Dolch", accent: "#D73E42" },
+  { name: "sand", label: "Sand", accent: "#C94E41" },
   { name: "scarlet", label: "Scarlet", accent: "#D5868A" },
 ];
 
@@ -61,8 +61,8 @@ export default function Page() {
     }
   }, [siteTheme]);
 
-  const activeTheme = useMemo(() => 
-    THEMES.find((t) => t.name === themeName) || THEMES[0], 
+  const activeTheme = useMemo(() =>
+    THEMES.find((t) => t.name === themeName) || THEMES[0],
     [themeName]
   );
 
@@ -84,11 +84,11 @@ export default function Page() {
       }}
     >
       <ThemeToggle currentTheme={siteTheme} onThemeChange={setSiteTheme} />
-      
+
       {siteTheme === "real-dark" && <FlashlightOverlay />}
 
       <div className="z-10 w-full max-w-4xl flex flex-col items-center gap-16 animate-in fade-in duration-1000">
-        
+
         {/* Brand Header */}
         <header className="flex flex-col items-center select-none">
           <h1
@@ -97,20 +97,21 @@ export default function Page() {
           >
             Typii<span style={{ color: activeTheme.accent }}>.</span>
           </h1>
-          <p className="text-[10px] text-muted-foreground mt-2 opacity-50 uppercase tracking-widest">
+
+          <p className="text-[10px] text-muted-foreground mt-1 opacity-40 uppercase tracking-widest">
             Current Theme: {siteTheme}
           </p>
         </header>
 
         {/* Interaction Stage */}
         <div className="w-full flex flex-col items-center gap-10">
-          
+
           {/* Typing Display */}
           <div className="w-full max-w-2xl px-4">
             <div className="w-full min-h-[100px] flex items-start justify-center text-center relative">
-              <div 
+              <div
                 className="font-normal text-3xl tracking-tight leading-relaxed text-foreground"
-                style={{ 
+                style={{
                   fontFamily: "var(--font-dm-mono)",
                   wordBreak: "break-all",
                   whiteSpace: "pre-wrap"
@@ -121,15 +122,15 @@ export default function Page() {
                 )}
                 <span
                   className="inline-block w-[2px] h-[1em] ml-1 rounded-full animate-blink"
-                  style={{ 
+                  style={{
                     background: activeTheme.accent,
                     verticalAlign: 'middle',
                   }}
                 />
               </div>
-              
+
               <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 flex items-center gap-4">
-                <span 
+                <span
                   className="text-[10px] font-bold uppercase tracking-[0.2em] transition-colors duration-300 whitespace-nowrap"
                   style={{ color: activeTheme.accent }}
                 >
@@ -149,43 +150,44 @@ export default function Page() {
 
           {/* Keyboard Container */}
           <div className="mt-4 scale-[0.9] md:scale-100 transition-transform">
-             <Keyboard
-                theme={themeName}
-                enableHaptics
-                enableSound
-                onKeyEvent={handleKeyEvent}
-              />
+            <Keyboard
+              theme={themeName}
+              enableHaptics
+              enableSound
+              onKeyEvent={handleKeyEvent}
+            />
           </div>
+
+          {/* Made By */}
+          <p className="text-sm font-semibold text-muted-foreground tracking-widest uppercase">
+            Made by{" "}
+            <span style={{ color: activeTheme.accent }} className="font-black">Satyarth</span>
+          </p>
 
           {/* Theme Selector */}
           <div className="flex flex-wrap items-center justify-center gap-2 mt-4">
-             {THEMES.map((t) => {
-                const isSelected = themeName === t.name;
-                return (
-                  <button
-                    key={t.name}
-                    onClick={() => setThemeName(t.name)}
-                    className="px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-[0.15em] transition-all duration-300"
-                    style={{
-                      background: isSelected ? t.accent : "var(--secondary)",
-                      color: isSelected ? "#fff" : "var(--muted-foreground)",
-                      boxShadow: isSelected ? `0 4px 12px ${t.accent}40` : "none",
-                    }}
-                  >
-                    {t.label}
-                  </button>
-                );
-             })}
+            {THEMES.map((t) => {
+              const isSelected = themeName === t.name;
+              return (
+                <button
+                  key={t.name}
+                  onClick={() => setThemeName(t.name)}
+                  className="px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-[0.15em] transition-all duration-300"
+                  style={{
+                    background: isSelected ? t.accent : "var(--secondary)",
+                    color: isSelected ? "#fff" : "var(--muted-foreground)",
+                    boxShadow: isSelected ? `0 4px 12px ${t.accent}40` : "none",
+                  }}
+                >
+                  {t.label}
+                </button>
+              );
+            })}
           </div>
 
         </div>
 
-        {/* Footer moved up and made visible */}
-        <footer className="mt-4">
-           <p className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.4em]">
-              Made by <span style={{ color: activeTheme.accent }}>Satyearth</span>
-           </p>
-        </footer>
+
       </div>
 
       <style>{`
